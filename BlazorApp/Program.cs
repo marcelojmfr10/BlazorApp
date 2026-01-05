@@ -1,10 +1,15 @@
 using BlazorApp.Components;
+using TechNotes.Application;
+using TechNotes.Application.Notes;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+//builder.Services.AddScoped<INoteService, NoteService>();
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 
