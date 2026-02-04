@@ -19,4 +19,8 @@
     <ProjectReference Include="..\TechNotes.Application\TechNotes.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
 </Project>
