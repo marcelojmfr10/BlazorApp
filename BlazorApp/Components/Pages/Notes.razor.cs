@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
 using TechNotes.Application.Notes;
 using TechNotes.Domain.Notes;
 
@@ -14,7 +13,7 @@ public partial class Notes
     protected override async Task OnInitializedAsync()
     {
         await Task.Delay(500);
-        var result = NoteService.GetAllNotes();
+        var result = await NoteService.GetAllNotesAsync();
         if(result is not null)
         {
             notes = result.ToList();
