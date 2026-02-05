@@ -8,7 +8,7 @@ namespace BlazorApp.Components.Pages;
 
 public partial class Notes
 {
-    private List<Note> notes = new();
+    private List<NoteResponse> notes = new();
 
     // [Inject] private INoteService NoteService { get; set; } = null!;
     [Inject] private ISender Sender {get; set;} = null!;
