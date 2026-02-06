@@ -20,8 +20,44 @@ public class NoteRepository : INoteRepository
         return note;
     }
 
+    public async Task<bool> DeleteNoteAsync(int id)
+    {
+        var noteToDelete = await GetNoteByIdAsync(id);
+        if(noteToDelete is null)
+        {
+            return false;
+        }
+
+        _context.Notes.Remove(noteToDelete);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
     public async Task<List<Note>> GetAllNotesAsync()
     {
         return await _context.Notes.ToListAsync();
+    }
+
+    public async Task<Note?> GetNoteByIdAsync(int id)
+    {
+        return await _context.Notes.FindAsync(id);
+    }
+
+    public async Task<Note?> UpdateNoteAsync(Note note)
+    {
+        var noteToUpdate = await GetNoteByIdAsync(note.Id);
+        if(noteToUpdate is null)
+        {
+            return null;
+        }
+
+        noteToUpdate.Title = note.Title;
+        noteToUpdate.Content = note.Content;
+        noteToUpdate.IsPublished = note.IsPublished;
+        noteToUpdate.PublishedAt = note.PublishedAt;
+        noteToUpdate.UpdatedAt = DateTime.Now;
+        _context.Notes.Update(noteToUpdate);
+        await _context.SaveChangesAsync();
+        return noteToUpdate;
     }
 }

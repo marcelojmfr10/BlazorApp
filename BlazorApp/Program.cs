@@ -1,4 +1,4 @@
-using BlazorApp.Components;
+using BlazorApp;
 using TechNotes.Application;
 using TechNotes.Application.Notes;
 using TechNotes.Infrastructure;

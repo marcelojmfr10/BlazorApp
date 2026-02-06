@@ -18,7 +18,9 @@
 
   <ItemGroup>
     <Folder Include="Notes\CreateNote\" />
+    <Folder Include="Notes\DeleteNote\" />
     <Folder Include="Notes\GetNotes\" />
+    <Folder Include="Notes\UpdateNote\" />
   </ItemGroup>
 
 </Project>

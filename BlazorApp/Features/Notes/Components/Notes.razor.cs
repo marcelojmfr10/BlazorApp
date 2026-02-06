@@ -2,9 +2,8 @@ using MediatR;
 using Microsoft.AspNetCore.Components;
 using TechNotes.Application.Notes;
 using TechNotes.Application.Notes.GetNotes;
-using TechNotes.Domain.Notes;
 
-namespace BlazorApp.Components.Pages;
+namespace BlazorApp.Features.Notes.Components;
 
 public partial class Notes
 {
