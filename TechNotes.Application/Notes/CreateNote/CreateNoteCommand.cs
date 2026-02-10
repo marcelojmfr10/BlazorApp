@@ -1,10 +1,6 @@
-using System;
-using MediatR;
-using TechNotes.Domain.Notes;
-
 namespace TechNotes.Application.Notes.CreateNote;
 
-public class CreateNoteCommand : IRequest<NoteResponse>
+public class CreateNoteCommand : ICommand<NoteResponse>
 {
     public required string Title { get; set; }
     public string? Content { get; set; }

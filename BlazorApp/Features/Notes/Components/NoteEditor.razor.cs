@@ -11,6 +11,8 @@ namespace BlazorApp.Features.Notes.Components;
 
 public partial class NoteEditor
 {
+    private string errorMessage = string.Empty;
+
     [SupplyParameterFromForm]
     private NoteModel? Note { get; set; }
 
@@ -31,10 +33,14 @@ public partial class NoteEditor
         if(NoteId is not null)
         {
             var result = await Sender.Send(new GetNoteByIdQuery { Id = (int)NoteId });
-            if(result is not null)
+            if(result.IsSuccessful)
             {
-                Note ??= result.Adapt<NoteModel>();
+                Note ??= result.Value.Adapt<NoteModel>();
                 Note.Id = (int)NoteId;
+            }
+            else
+            {
+                SetErrorMessage(result.ErrorMessage);
             }
         } 
         else
@@ -49,18 +55,31 @@ public partial class NoteEditor
         {
             var command = Note.Adapt<UpdateNoteCommand>();
             var result = await Sender.Send(command);
-            if(result is not null)
+            if(result.IsSuccessful)
             {
-                Note = result.Adapt<NoteModel>();
+                Note = result.Value.Adapt<NoteModel>();
+                Console.WriteLine("nota actualizada");
+                NavigationManager.NavigateTo("/notes");
             }
-            Console.WriteLine("nota actualizada");
+            else
+            {
+                SetErrorMessage(result.ErrorMessage);
+            }
         } 
         else
         {
             var command = Note.Adapt<CreateNoteCommand>();
             var result = await Sender.Send(command);
-            Note = result.Adapt<NoteModel>();
-            Console.WriteLine("nota creada");
+            if (result.IsSuccessful)
+            {
+                Note = result.Adapt<NoteModel>();
+                Console.WriteLine("nota creada");
+                NavigationManager.NavigateTo("/notes");
+            }
+            else
+            {
+                SetErrorMessage(result.ErrorMessage);
+            }
         }
     }
 
@@ -72,8 +91,8 @@ public partial class NoteEditor
         }
 
         var command = new DeleteNoteCommand { Id = (int)NoteId };
-        var isSuccess = await Sender.Send(command);
-        if (isSuccess)
+        var result = await Sender.Send(command);
+        if (result.IsSuccessful)
         {
             Console.WriteLine("nota borrada");
             NavigationManager.NavigateTo("/notes");
@@ -82,5 +101,10 @@ public partial class NoteEditor
         {
             Console.WriteLine("error al borrar la nota");
         }
+    }
+
+    private void SetErrorMessage(string? error)
+    {
+        errorMessage = error ?? string.Empty;
     }
 }

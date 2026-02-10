@@ -6,9 +6,13 @@
 <h3>Notas</h3>
 <a href="/note-editor" class="btn btn-primary">Crear Nota</a>
 
-@if(notes.Count == 0)
+@if(notes == null)
 {
     <p>Cargando...</p>
+}
+else if(notes.Count == 0)
+{
+    <p>No hay notas disponibles</p>
 }
 else
 {
