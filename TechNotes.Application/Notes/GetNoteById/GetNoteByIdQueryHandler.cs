@@ -12,7 +12,7 @@ public class GetNoteByIdQueryHandler : IQueryHandler<GetNoteByIdQuery, NoteRespo
     public async Task<Result<NoteResponse?>> Handle(GetNoteByIdQuery request, CancellationToken cancellationToken)
     {
         var result = await _noteRepository.GetNoteByIdAsync(request.Id);
-        if(result is null)
+        if (result is null)
         {
             return Result.Fail<NoteResponse?>("Nota no encontrada");
         }

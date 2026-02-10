@@ -30,10 +30,10 @@ public partial class NoteEditor
 
     protected override async Task OnParametersSetAsync()
     {
-        if(NoteId is not null)
+        if (NoteId is not null)
         {
             var result = await Sender.Send(new GetNoteByIdQuery { Id = (int)NoteId });
-            if(result.IsSuccessful)
+            if (result.IsSuccessful)
             {
                 Note ??= result.Value.Adapt<NoteModel>();
                 Note.Id = (int)NoteId;
@@ -42,7 +42,7 @@ public partial class NoteEditor
             {
                 SetErrorMessage(result.ErrorMessage);
             }
-        } 
+        }
         else
         {
             Note ??= new();
@@ -55,7 +55,7 @@ public partial class NoteEditor
         {
             var command = Note.Adapt<UpdateNoteCommand>();
             var result = await Sender.Send(command);
-            if(result.IsSuccessful)
+            if (result.IsSuccessful)
             {
                 Note = result.Value.Adapt<NoteModel>();
                 Console.WriteLine("nota actualizada");
@@ -65,7 +65,7 @@ public partial class NoteEditor
             {
                 SetErrorMessage(result.ErrorMessage);
             }
-        } 
+        }
         else
         {
             var command = Note.Adapt<CreateNoteCommand>();
@@ -85,7 +85,7 @@ public partial class NoteEditor
 
     private async Task DeleteNote()
     {
-        if(NoteId is null)
+        if (NoteId is null)
         {
             return;
         }
@@ -96,7 +96,7 @@ public partial class NoteEditor
         {
             Console.WriteLine("nota borrada");
             NavigationManager.NavigateTo("/notes");
-        } 
+        }
         else
         {
             Console.WriteLine("error al borrar la nota");

@@ -10,4 +10,8 @@
     <ProjectReference Include="..\TechNotes.Infrastructure\TechNotes.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Notes\Services\" />
+  </ItemGroup>
+
 </Project>

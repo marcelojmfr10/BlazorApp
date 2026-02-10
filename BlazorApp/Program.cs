@@ -1,4 +1,6 @@
 using BlazorApp;
+using BlazorApp.Features.Notes.Services;
+using Microsoft.AspNetCore.WebSockets;
 using TechNotes.Application;
 using TechNotes.Application.Notes;
 using TechNotes.Infrastructure;
@@ -13,6 +15,8 @@ builder.Services.AddRazorComponents()
 builder.Services.AddApplicationServices();
 
 builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddScoped<INoteColorService, NoteColorService>();
 
 var app = builder.Build();
 

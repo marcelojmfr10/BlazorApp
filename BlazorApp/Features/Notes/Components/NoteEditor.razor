@@ -1,20 +1,25 @@
 ﻿@page "/note-editor"
 @page "/note-editor/{NoteId:int}"
 
-@if(isEditMode && Note is not null){
+@if (isEditMode && Note is not null)
+{
     <PageTitle>Editar Nota</PageTitle>
     <p>Editando nota con el título: @Note.Title</p>
     <h3>Editar Nota</h3>
     <a href="/notes" class="btn btn-primary">Regresar</a>
-} else {
+}
+else
+{
     <PageTitle>Crear Nota</PageTitle>
     <h3>Crear Nota</h3>
 }
 
-@if(Note is not null){
+@if (Note is not null)
+{
     <EditForm Model="Note" OnSubmit="HandleSubmit" FormName="NoteEditorForm">
         <InputText @bind-Value="Note.Title" placeholder="Título" class="form-control mb-2"></InputText>
-        <InputTextArea @bind-Value="Note.Content" placeholder="Contenido" class="form-control mb-2" rows="5"></InputTextArea>
+        <InputTextArea @bind-Value="Note.Content" placeholder="Contenido" class="form-control mb-2" rows="5">
+        </InputTextArea>
         <label>Fecha de publicación:</label>
         <InputDate @bind-Value="Note.PublishedAt" class="form-control mb-2"></InputDate>
         <label class="form-check-label mb-2">Publicado:</label>
@@ -22,13 +27,14 @@
         <button type="submit" class="btn btn-success mt-3 w-100">@(isEditMode ? "Actualizar" : "Crear")</button>
     </EditForm>
 
-    @if(isEditMode){
+    @if (isEditMode)
+    {
         <form @onsubmit="DeleteNote" @formname="NoteDeleteForm" method="post">
             <button type="submit" class="btn btn-danger mt-2">Borrar</button>
             <AntiforgeryToken /> @* protege contra ataques csrf *@
         </form>
     }
-    
+
 }
 
 <span class="text-danger">@errorMessage</span>

@@ -23,7 +23,7 @@ public class NoteRepository : INoteRepository
     public async Task<bool> DeleteNoteAsync(int id)
     {
         var noteToDelete = await GetNoteByIdAsync(id);
-        if(noteToDelete is null)
+        if (noteToDelete is null)
         {
             return false;
         }
@@ -46,7 +46,7 @@ public class NoteRepository : INoteRepository
     public async Task<Note?> UpdateNoteAsync(Note note)
     {
         var noteToUpdate = await GetNoteByIdAsync(note.Id);
-        if(noteToUpdate is null)
+        if (noteToUpdate is null)
         {
             return null;
         }

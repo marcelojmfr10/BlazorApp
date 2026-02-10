@@ -13,7 +13,7 @@ public class UpdateNoteCommandHandler : ICommandHandler<UpdateNoteCommand, NoteR
     {
         var noteToUpdate = request.Adapt<Note>();
         var updatedNote = await _noteRepository.UpdateNoteAsync(noteToUpdate);
-        if(updatedNote is null)
+        if (updatedNote is null)
         {
             return Result.Fail<NoteResponse?>("Nota no encontrada");
         }
