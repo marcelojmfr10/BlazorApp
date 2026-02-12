@@ -4,37 +4,87 @@
 @if (isEditMode && Note is not null)
 {
     <PageTitle>Editar Nota</PageTitle>
-    <p>Editando nota con el título: @Note.Title</p>
-    <h3>Editar Nota</h3>
-    <a href="/notes" class="btn btn-primary">Regresar</a>
 }
 else
 {
     <PageTitle>Crear Nota</PageTitle>
-    <h3>Crear Nota</h3>
 }
 
 @if (Note is not null)
 {
-    <EditForm Model="Note" OnSubmit="HandleSubmit" FormName="NoteEditorForm">
-        <InputText @bind-Value="Note.Title" placeholder="Título" class="form-control mb-2"></InputText>
-        <InputTextArea @bind-Value="Note.Content" placeholder="Contenido" class="form-control mb-2" rows="5">
-        </InputTextArea>
-        <label>Fecha de publicación:</label>
-        <InputDate @bind-Value="Note.PublishedAt" class="form-control mb-2"></InputDate>
-        <label class="form-check-label mb-2">Publicado:</label>
-        <InputCheckbox @bind-Value="Note.IsPublished" class="form-check-input mb-2"></InputCheckbox>
-        <button type="submit" class="btn btn-success mt-3 w-100">@(isEditMode ? "Actualizar" : "Crear")</button>
-    </EditForm>
+    <div class="max-w-3xl mx-auto py-8">
+        <div class="bg-white shadow sm:rounded-lg">
+            <div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
+                <div>
+                    <h2 class="text-lg font-medium text-gray-900">@(isEditMode ? "Editar Nota" : "Crear Nota")</h2>
+                    @if (isEditMode)
+                    {
+                        <p class="mt-1 text-sm text-gray-600">Editando nota con el título: <span
+                            class="font-semibold">@Note.Title</span></p>
+                        }
+                    </div>
+                    <a href="/notes"
+                       class="inline-flex items-center px-3 py-1.5 border border-gray-200 rounded-md text-sm text-gray-700 hover:bg-gray-50">Regresar</a>
+                </div>
 
-    @if (isEditMode)
-    {
-        <form @onsubmit="DeleteNote" @formname="NoteDeleteForm" method="post">
-            <button type="submit" class="btn btn-danger mt-2">Borrar</button>
-            <AntiforgeryToken /> @* protege contra ataques csrf *@
-        </form>
-    }
+                <div class="px-6 py-6">
+                    <EditForm Model="Note" OnSubmit="HandleSubmit" FormName="NoteEditorForm">
+                        <div class="space-y-5">
+                            <div>
+                                <label for="title" class="block text-sm font-medium text-gray-700">Título</label>
+                                <InputText id="title" @bind-Value="Note.Title" placeholder="Título"
+                                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                            </div>
 
-}
+                            <div>
+                                <label for="content" class="block text-sm font-medium text-gray-700">Contenido</label>
+                                <InputTextArea id="content" @bind-Value="Note.Content" placeholder="Contenido"
+                                               class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                               rows="6"></InputTextArea>
+                            </div>
 
-<span class="text-danger">@errorMessage</span>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="publishedAt" class="block text-sm font-medium text-gray-700">Fecha de
+                                        publicación</label>
+                                        <InputDate id="publishedAt" @bind-Value="Note.PublishedAt"
+                                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                                    </div>
+
+                                    <div class="flex items-start">
+                                        <div class="flex items-center h-5">
+                                            <InputCheckbox id="isPublished" @bind-Value="Note.IsPublished"
+                                                           class="h-4 w-4 text-indigo-600 border-gray-300 rounded" />
+                                        </div>
+                                        <div class="ml-3 text-sm">
+                                            <label for="isPublished" class="font-medium text-gray-700">Publicado</label>
+                                            <p class="text-gray-500">Marcar si la nota está publicada</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="pt-4">
+                                    <button type="submit"
+                                            class="inline-flex items-center justify-center w-full rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">@(isEditMode
+                                                                                                                                                                                                                                                                            ? "Actualizar" : "Crear")</button>
+                                    </div>
+                                </div>
+                            </EditForm>
+
+                            @if (isEditMode)
+                            {
+                                <form @onsubmit="DeleteNote" @formname="NoteDeleteForm" method="post" class="mt-4">
+                                    <button type="submit"
+                                            class="inline-flex items-center justify-center w-full rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">Borrar</button>
+                                    <AntiforgeryToken />
+                                </form>
+                            }
+
+                            @if (!string.IsNullOrEmpty(errorMessage))
+                            {
+                                <p class="mt-4 text-sm text-red-600">@errorMessage</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
