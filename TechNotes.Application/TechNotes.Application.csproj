@@ -19,10 +19,14 @@
   <ItemGroup>
     <Folder Include="Abstractions\" />
     <Folder Include="Abstractions\RequestHandling\" />
+    <Folder Include="Authentication\" />
     <Folder Include="Notes\CreateNote\" />
     <Folder Include="Notes\DeleteNote\" />
     <Folder Include="Notes\GetNotes\" />
     <Folder Include="Notes\UpdateNote\" />
+    <Folder Include="Users\" />
+    <Folder Include="Users\LoginUser\" />
+    <Folder Include="Users\RegisterUser\" />
   </ItemGroup>
 
 </Project>
