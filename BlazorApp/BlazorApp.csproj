@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <Folder Include="Features\Notes\Services\" />
+    <Folder Include="Features\Users\" />
+    <Folder Include="Features\Users\Components\" />
   </ItemGroup>
 
 </Project>

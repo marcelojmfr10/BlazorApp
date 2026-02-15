@@ -2,10 +2,12 @@ using BlazorApp.Components.Pages;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Identity;
 using TechNotes.Application.Notes.CreateNote;
 using TechNotes.Application.Notes.DeleteNote;
 using TechNotes.Application.Notes.GetNoteById;
 using TechNotes.Application.Notes.UpdateNote;
+using TechNotes.Infrastructure.Authentication;
 
 namespace BlazorApp.Features.Notes.Components;
 
@@ -13,20 +15,19 @@ public partial class NoteEditor
 {
     private string errorMessage = string.Empty;
 
-    [SupplyParameterFromForm]
-    private NoteModel? Note { get; set; }
+    [SupplyParameterFromForm] private NoteModel? Note { get; set; }
 
-    [Parameter]
-    public int? NoteId { get; set; }
+    [Parameter] public int? NoteId { get; set; }
 
-    [Inject]
-    private ISender Sender { get; set; } = null!;
+    [Inject] private ISender Sender { get; set; } = null!;
 
-    [Inject]
-    private NavigationManager NavigationManager { get; set; } = null!;
+    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
 
+    [Inject] private UserManager<User> UserManager { get; set; } = null!;
 
     private bool isEditMode => NoteId != null;
+
+    [CascadingParameter] private HttpContext HttpContext { get; set; } = default!;
 
     protected override async Task OnParametersSetAsync()
     {
@@ -69,6 +70,7 @@ public partial class NoteEditor
         else
         {
             var command = Note.Adapt<CreateNoteCommand>();
+            command.UserId = UserManager.GetUserId(HttpContext.User);
             var result = await Sender.Send(command);
             if (result.IsSuccessful)
             {

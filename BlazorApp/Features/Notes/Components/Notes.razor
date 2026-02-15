@@ -1,4 +1,5 @@
 ﻿@page "/notes"
+@using Microsoft.AspNetCore.Components.Authorization
 @attribute [StreamRendering]
 
 <PageTitle>Notes</PageTitle>
@@ -65,10 +66,19 @@ else
                     <!-- Cabecera de la nota -->
                     <div class="p-3 flex-1 flex flex-col">
                         <div class="flex items-start justify-between mb-3">
-                            <a href="/note-editor/@note.Id"
-                                   class="text-3xl font-semibold text-gray-800 leading-tight line-clamp-2 flex-1 pr-2">
-                                @note.Title
-                            </a>
+                            <AuthorizeView>
+                                <Authorized>
+                                    <a href="/note-editor/@note.Id"
+                                           class="text-3xl font-semibold text-gray-800 leading-tight line-clamp-2 flex-1 pr-2">
+                                        @note.Title
+                                    </a>
+                                </Authorized>
+                                <NotAuthorized>
+                                    <p class="text-3xl font-semibold text-gray-800 leading-tight line-clamp-2 flex-1 pr-2">
+                                        @note.Title
+                                    </p>
+                                </NotAuthorized>
+                            </AuthorizeView>
                             @if (note.IsPublished)
                             {
                                 <div class="shrink-0">
