@@ -21,7 +21,8 @@ else
                     @if (isEditMode)
                     {
                         <p class="mt-1 text-sm text-gray-600">Editando nota con el título: <span
-                            class="font-semibold">@Note.Title</span></p>
+                            class="font-semibold">@Note.Title</span> - Autor:<span
+                            class="ml-2 inline-block">@Note.UserName</span></p>
                         }
                     </div>
                     <a href="/notes"
@@ -67,7 +68,7 @@ else
                                 <div class="pt-4">
                                     <button type="submit"
                                             class="inline-flex items-center justify-center w-full rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">@(isEditMode
-                                                                                                                                                                                                                                                                                                                                                            ? "Actualizar" : "Crear")</button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                            ? "Actualizar" : "Crear")</button>
                                     </div>
                                 </div>
                             </EditForm>
