@@ -13,6 +13,15 @@ namespace BlazorApp.Features.Users.Components
         private LoginUserModel LoginUserModel { get; set; } = new();
         private string errorMessage = string.Empty;
 
+        protected override void OnInitialized()
+        {
+            var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+            if (Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query).TryGetValue("error", out var error))
+            {
+                errorMessage = error.ToString();
+            }
+        }
+
         async Task HandleSubmit()
         {
             var command = new LoginUserCommand
