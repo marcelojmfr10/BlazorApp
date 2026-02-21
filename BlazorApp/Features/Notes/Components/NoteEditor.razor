@@ -1,6 +1,6 @@
 ﻿@page "/note-editor"
 @page "/note-editor/{NoteId:int}"
-@attribute [Authorize]
+@attribute [Authorize(Roles = "Admin, Writer")]
 
 @if (isEditMode && Note is not null)
 {
@@ -68,7 +68,7 @@ else
                                 <div class="pt-4">
                                     <button type="submit"
                                             class="inline-flex items-center justify-center w-full rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">@(isEditMode
-                                                                                                                                                                                                                                                                                                                                                                                                                                            ? "Actualizar" : "Crear")</button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ? "Actualizar" : "Crear")</button>
                                     </div>
                                 </div>
                             </EditForm>
