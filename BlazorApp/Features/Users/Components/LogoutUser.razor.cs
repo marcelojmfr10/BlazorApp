@@ -1,7 +1,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
-using TechNotes.Infrastructure.Authentication;
+using TechNotes.Infrastructure.Users;
 
 namespace BlazorApp.Features.Users.Components;
 

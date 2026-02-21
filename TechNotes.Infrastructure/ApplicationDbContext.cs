@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TechNotes.Domain.Notes;
-using TechNotes.Infrastructure.Authentication;
+using TechNotes.Infrastructure.Users;
 
 namespace TechNotes.Infrastructure;
 

@@ -7,7 +7,7 @@ using TechNotes.Application.Notes.CreateNote;
 using TechNotes.Application.Notes.DeleteNote;
 using TechNotes.Application.Notes.GetNoteById;
 using TechNotes.Application.Notes.UpdateNote;
-using TechNotes.Infrastructure.Authentication;
+using TechNotes.Infrastructure.Users;
 
 namespace BlazorApp.Features.Notes.Components;
 
@@ -70,7 +70,7 @@ public partial class NoteEditor
         else
         {
             var command = Note.Adapt<CreateNoteCommand>();
-            command.UserId = UserManager.GetUserId(HttpContext.User);
+            // command.UserId = UserManager.GetUserId(HttpContext.User);
             var result = await Sender.Send(command);
             if (result.IsSuccessful)
             {
