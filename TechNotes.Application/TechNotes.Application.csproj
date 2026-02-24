@@ -26,9 +26,12 @@
     <Folder Include="Notes\GetNotes\" />
     <Folder Include="Notes\UpdateNote\" />
     <Folder Include="Users\" />
+    <Folder Include="Users\AddRoleToUser\" />
+    <Folder Include="Users\GetUserRoles\" />
     <Folder Include="Users\GetUsers\" />
     <Folder Include="Users\LoginUser\" />
     <Folder Include="Users\RegisterUser\" />
+    <Folder Include="Users\RemoveRoleFromUser\" />
   </ItemGroup>
 
 </Project>

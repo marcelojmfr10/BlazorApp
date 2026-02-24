@@ -15,6 +15,27 @@ public partial class UserOverview
 
     protected override async Task OnInitializedAsync()
     {
+        await LoadUsers();
+    }
+
+    private void OpenModal(string userId, string userName)
+    {
+        selectedUserId = userId;
+        selectedUserName = userName;
+        showModal = true;
+    }
+
+    private async void CloseModal()
+    {
+        selectedUserId = string.Empty;
+        selectedUserName = string.Empty;
+        showModal = false;
+        await LoadUsers();
+        StateHasChanged();
+    }
+
+    private async Task LoadUsers()
+    {
         var result = await Sender.Send(new GetUsersQuery());
         if (result.IsSuccessful && result.Value is not null)
         {
@@ -24,21 +45,5 @@ public partial class UserOverview
         {
             users = new();
         }
-    }
-
-    private void OpenModal(string userId, string userName)
-    {
-        selectedUserId = userId;
-        selectedUserName = userName;
-        showModal = true;
-        Console.WriteLine($"modal abierto con usuario {userName}");
-    }
-
-    private void CloseModal()
-    {
-        selectedUserId = string.Empty;
-        selectedUserName = string.Empty;
-        showModal = false;
-        Console.WriteLine($"modal cerrado");
     }
 }
