@@ -3,7 +3,6 @@ using BlazorApp.Features.Notes.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.WebSockets;
 using TechNotes.Application;
 using TechNotes.Application.Notes;
 using TechNotes.Infrastructure;
@@ -12,7 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+    .AddInteractiveServerComponents()
+    .AddInteractiveWebAssemblyComponents();
 
 builder.Services.AddControllers();
 builder.Services.AddDataProtection().SetApplicationName("TechNotes");
@@ -79,6 +79,8 @@ app.UseAntiforgery();
 app.MapControllers();
 
 app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+    .AddInteractiveServerRenderMode()
+    .AddInteractiveWebAssemblyRenderMode()
+    .AddAdditionalAssemblies(typeof(TechNotes.Client._Imports).Assembly);
 
 app.Run();

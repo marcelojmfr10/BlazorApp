@@ -43,6 +43,12 @@ public class NoteRepository : INoteRepository
         return await _context.Notes.FindAsync(id);
     }
 
+    public async Task<List<Note>> GetNotesByUserAsync(string userId)
+    {
+        var notes = await _context.Notes.Where(note => note.UserId == userId).ToListAsync();
+        return notes;
+    }
+
     public async Task<Note?> UpdateNoteAsync(Note note)
     {
         var noteToUpdate = await GetNoteByIdAsync(note.Id);
