@@ -1,8 +1,9 @@
 using BlazorApp.Components.Pages;
 using Mapster;
-using MediatR;
+// using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
+using TechNotes.Application.Abstractions.RequestHandling;
 using TechNotes.Application.Notes.CreateNote;
 using TechNotes.Application.Notes.DeleteNote;
 using TechNotes.Application.Notes.GetNoteById;

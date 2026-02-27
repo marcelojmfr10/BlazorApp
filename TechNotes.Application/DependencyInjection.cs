@@ -8,10 +8,12 @@ public static class DependencyInjection
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         // Register application services here
-        services.AddMediatR(config =>
-        {
-            config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
-        });
+        // services.AddMediatR(config =>
+        // {
+        //     config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
+        // });
+        services.AddMediator(typeof(DependencyInjection).Assembly);
+        services.AddScoped<INotesOverviewService, NotesOverviewService>();
         return services;
     }
 }
